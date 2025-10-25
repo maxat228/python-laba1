@@ -43,8 +43,8 @@ def tokenize_char(expression: str) -> list:
                     elif expr[i] == '.':
                         # Если в вещественном числе есть точка, но на подходе уже вторая, то выводим ошибку
                         if char.count('.'):
-                            raise ValueError("В инфиксном выражении у вещественного"
-                                             " числа должна быть только одна точка.")
+                            raise ValueError("В инфиксном выражении у вещественного числа должна"
+                                             " быть только одна точка.")
                         else:
                             char += expr[i]
                             i += 1
@@ -181,10 +181,8 @@ def calculate(expression: list) -> str:
                 b = stack.pop()
                 a = stack.pop()
                 # Для деления нацело и вычисления остатка от деления нужно использовать только целые числа, иначе ошибка
-                if token == ':' and (int(a) != a or int(b) != b):
-                    raise ValueError("Для выполнения операции '//' необходимы только целые числа.")
-                if token == '%' and (int(a) != a or int(b) != b):
-                    raise ValueError("Для выполнения операции '%' необходимы только целые числа.")
+                if token in ":%" and (int(a) != a or int(b) != b):
+                    raise ValueError(f"Для выполнения операции {token} необходимы только целые числа.")
                 # Делаем промежуточные расчеты и результат кладем обратно в стек
                 if token in operators:
                     stack.append(operators[token](a, b))
